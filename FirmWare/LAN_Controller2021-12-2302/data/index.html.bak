@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+	<title>笨鸟FLY8-局域网控制器</title>
+</head>
+
+<body>
+<center>
+<!-- <img src="img/LG.png"alt="笨鸟FLY8"> -->
+<br>
+<br>
+<br>
+<h1>单击图片控制开关</h1>
+<br>
+<br>
+
+<input type="image" src="img/LG.png"onclick="sendData(1)" alt="笨鸟FLY8" />
+<br>
+<input type="image" src="img/LG.png"onclick="sendData(0)" alt="笨鸟FLY8" />
+<div id="demo">
+
+<!--  <br>
+  <button type="button" onclick="sendData(1)">点亮 LED</button>
+  <button type="button" onclick="sendData(0)">关闭 LED</button><br> -->
+</div>
+
+<br><br>
+<div id="demo">
+<h3>此页面用于演示如何通过网页控制LED引脚。
+</h3>
+<script>
+function sendData(led) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("LEDState").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "setLED?LEDstate="+led, true);
+  xhttp.send();
+}
+ 
+setInterval(function() {
+  // Call a function repetatively with 2 Second interval
+  getData();
+}, 2000); //2000mSeconds update rate
+ 
+function getData() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("ADCValue").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "readADC", true);
+  xhttp.send();
+}
+</script>
+</center>
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="UTF-8">
+	<title>笨鸟FLY8-局域网控制器</title>
+	
+		
+	<style>
+
+	#LG{width:600px;height:750px; solid #369;overflow:hidden;margin:auto;}
+
+/*	#word{margin:auto;width:136px;}*/
+
+	</style>
+	
+</head>
+
+<body>
+<center>
+<br>
+<h1>单击图片控制开关</h1>
+<div id="LG">
+	
+	<input type="image" src="img/LGON.png" onclick="LGswitch(0)" alt="笨鸟FLY8" />
+	
+	<input type="image" src="img/LGOFF.png"onclick="LGswitch(1)" alt="笨鸟FLY8" />
+
+</div>
+<div id="demo">
+<h3>此页面用于演示如何通过网页控制LED引脚。
+</h3>
+<script>
+	
+	function LGswitch(led) {
+		
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("LEDState").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "setLED?LEDstate="+led, true);
+  xhttp.send();
+		
+  $('#LG').find('input').eq(0).appendTo($('#LG'));	
+}
+</script>
+</center>
+</body>
+</html>
